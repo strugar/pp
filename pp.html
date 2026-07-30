@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Aplikacja PeoPay</title>
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aplikacja PeoPay">
+<meta property="og:description" content="Codzienne bankowanie w najlepszym wydaniu.">
+<meta property="og:image" content="https://strugar.github.io/pp/przelew2.png">
+<meta property="og:url" content="https://strugar.github.io/pp/przelew.html">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:linear-gradient(135deg,#eef4ff,#f8fbff);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.card{
+    width:100%;
+    max-width:900px;
+    background:#fff;
+    border-radius:24px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 15px 45px rgba(0,0,0,.12);
+}
+
+.image-box{
+    display:inline-block;
+    border:2px solid #0d6efd;
+    border-radius:18px;
+    overflow:hidden;
+    background:#fff;
+    margin-bottom:25px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.image-box img{
+    display:block;
+    max-width:100%;
+    height:auto;
+    border-radius:16px;
+}
+
+h1{
+    font-size:28px;
+    margin-bottom:12px;
+    color:#1c1c1c;
+}
+
+p{
+    color:#666;
+    line-height:1.6;
+    margin-bottom:30px;
+    font-size:16px;
+}
+
+.button{
+    display:block;
+    width:100%;
+    border:none;
+    background:#0057ff;
+    color:#fff;
+    padding:17px;
+    border-radius:14px;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.button:hover{
+    background:#0040c7;
+}
+
+.info{
+    margin-top:18px;
+    color:#888;
+    font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="image-box">
+        <img src="https://strugar.github.io/pp/przelew2.png" alt="PeoPay" id="openApp">
+    </div>
+
+    <h1>PeoPay</h1>
+
+    <p>
+        Pobierz lub otwórz aplikację PeoPay i korzystaj z wygodnego bankowania na swoim telefonie.
+    </p>
+
+    <div class="info">
+        Bankowość mobilna Pekao
+    </div>
+
+</div>
+
+<script>
+
+const UNIVERSAL_LINK = "https://app.pekao.com.pl";
+
+const PLAY_STORE =
+"https://play.google.com/store/apps/details?id=softax.pekao.powerpay";
+
+const APP_STORE =
+"https://apps.apple.com/pl/app/peopay/id575249587";
+
+function isMessengerBrowser() {
+    const ua = navigator.userAgent || "";
+
+    return (
+        ua.includes("FBAN") ||
+        ua.includes("FBAV") ||
+        ua.includes("Messenger") ||
+        ua.includes("FB_IAB") ||
+        ua.includes("Instagram")
+    );
+}
+
+function isAndroid(){
+    return /Android/i.test(navigator.userAgent);
+}
+
+function isIOS(){
+    return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+function openTarget(){
+
+    if(isMessengerBrowser()){
+
+        if(isAndroid()){
+            window.location.href = PLAY_STORE;
+        }
+        else if(isIOS()){
+            window.location.href = APP_STORE;
+        }
+        else{
+            window.location.href = UNIVERSAL_LINK;
+        }
+
+    }else{
+        window.location.href = UNIVERSAL_LINK;
+    }
+
+}
+
+if (!isMessengerBrowser()) {
+    window.addEventListener("load",function(){
+		if(!isMessengerBrowser()){
+			setTimeout(openTarget,300);
+		}
+	});
+} 
+
+
+document.getElementById("openApp").addEventListener("click",openTarget);
+
+</script>
+
+</body>
+</html>
