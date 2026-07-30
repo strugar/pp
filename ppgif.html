@@ -293,13 +293,12 @@
                 audio.play().catch(() => {
                     alert("Przeglądarka wymaga interakcji użytkownika do odtworzenia dźwięku.");
                 });
+				playVibration();
             }
 
             function playVibration() {
                 if (navigator.vibrate) {
                     navigator.vibrate([250, 120, 250, 120, 600]);
-                } else {
-                    alert("To urządzenie nie obsługuje wibracji.");
                 }
             }
 			
