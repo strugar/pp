@@ -1,187 +1,344 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
-<head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Demo Notification</title>
 
-<title>Aplikacja PeoPay</title>
+        <!-- Open Graph -->
+		<meta property="og:type" content="website" />
+        <meta property="og:url" content="https://strugar.github.io/pp/pp.html" />
+        <meta property="og:title" content="Aplikacja PeoPay" />
+        <meta property="og:description" content="Codzienne bankowanie w najlepszym wydaniu." />
+        <meta property="og:image" content="https://strugar.github.io/pp/preview.png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Powiadomienie o przelewie" />
+		<meta property="og:site_name" content="Pekao" />
+		
+		
+        
+        <meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Aplikacja PeoPay" />
+		<meta name="twitter:description" content="Codzienne bankowanie w najlepszym wydaniu." />
+        <meta name="twitter:image" content="https://strugar.github.io/pp/preview.png" />
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Aplikacja PeoPay">
-<meta property="og:description" content="Codzienne bankowanie w najlepszym wydaniu.">
-<meta property="og:image" content="https://strugar.github.io/pp/przelew2.png">
-<meta property="og:url" content="https://strugar.github.io/pp/przelew.html">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: Arial, Helvetica, sans-serif;
+            }
 
-<style>
+            body {
+                background: #f5f7fb;
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:linear-gradient(135deg,#eef4ff,#f8fbff);
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-}
+                min-height: 100vh;
 
-.card{
-    width:100%;
-    max-width:900px;
-    background:#fff;
-    border-radius:24px;
-    padding:30px;
-    text-align:center;
-    box-shadow:0 15px 45px rgba(0,0,0,.12);
-}
+                padding: 20px;
+            }
 
-.image-box{
-    display:inline-block;
-    border:2px solid #0d6efd;
-    border-radius:18px;
-    overflow:hidden;
-    background:#fff;
-    margin-bottom:25px;
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
-}
+            .card {
+                width: 420px;
+                max-width: 100%;
 
-.image-box img{
-    display:block;
-    max-width:100%;
-    height:auto;
-    border-radius:16px;
-}
+                background: white;
 
-h1{
-    font-size:28px;
-    margin-bottom:12px;
-    color:#1c1c1c;
-}
+                border-radius: 28px;
 
-p{
-    color:#666;
-    line-height:1.6;
-    margin-bottom:30px;
-    font-size:16px;
-}
+                overflow: hidden;
 
-.button{
-    display:block;
-    width:100%;
-    border:none;
-    background:#0057ff;
-    color:#fff;
-    padding:17px;
-    border-radius:14px;
-    text-decoration:none;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.25s;
-}
+                box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
 
-.button:hover{
-    background:#0040c7;
-}
+                animation: fade 0.6s;
+            }
 
-.info{
-    margin-top:18px;
-    color:#888;
-    font-size:14px;
-}
+            @keyframes fade {
+                from {
+                    opacity: 0;
+                    transform: translateY(25px);
+                }
 
-</style>
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
 
-</head>
+            .header {
+                display: flex;
 
-<body>
+                justify-content: space-between;
 
-<div class="card">
+                align-items: center;
 
-    <div class="image-box">
-        <img src="https://strugar.github.io/pp/przelew2.png" alt="PeoPay" id="openApp">
-    </div>
+                padding: 20px;
+            }
 
-    <h1>PeoPay</h1>
+            .header h2 {
+                font-size: 22px;
+            }
 
-    <p>
-        Pobierz lub otwórz aplikację PeoPay i korzystaj z wygodnego bankowania na swoim telefonie.
-    </p>
+            .logo {
+                width: 45px;
 
-    <div class="info">
-        Bankowość mobilna Pekao
-    </div>
+                height: 45px;
 
-</div>
+                border-radius: 50%;
+            }
 
-<script>
+            .gif {
+                width: 100%;
 
-const UNIVERSAL_LINK = "https://app.pekao.com.pl";
+                display: block;
+            }
 
-const PLAY_STORE =
-"https://play.google.com/store/apps/details?id=softax.pekao.powerpay";
+            .section {
+                padding: 18px 24px;
+            }
 
-const APP_STORE =
-"https://apps.apple.com/pl/app/peopay/id575249587";
+            .row {
+                display: flex;
 
-function isMessengerBrowser() {
-    const ua = navigator.userAgent || "";
+                justify-content: space-between;
 
-    return (
-        ua.includes("FBAN") ||
-        ua.includes("FBAV") ||
-        ua.includes("Messenger") ||
-        ua.includes("FB_IAB") ||
-        ua.includes("Instagram")
-    );
-}
+                align-items: center;
 
-function isAndroid(){
-    return /Android/i.test(navigator.userAgent);
-}
+                margin: 18px 0;
+            }
 
-function isIOS(){
-    return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-}
+            .row span {
+                font-size: 18px;
 
-function openTarget(){
+                font-weight: bold;
+            }
 
-    if(isMessengerBrowser()){
+            .play {
+                background: #2563eb;
 
-        if(isAndroid()){
-            window.location.href = PLAY_STORE;
-        }
-        else if(isIOS()){
-            window.location.href = APP_STORE;
-        }
-        else{
-            window.location.href = UNIVERSAL_LINK;
-        }
+                border: none;
 
-    }else{
-        window.location.href = UNIVERSAL_LINK;
-    }
+                color: white;
 
-}
+                padding: 12px 24px;
 
-if (!isMessengerBrowser()) {
-    window.addEventListener("load",function(){
-		if(!isMessengerBrowser()){
-			setTimeout(openTarget,300);
-		}
-	});
-} 
+                border-radius: 14px;
 
+                cursor: pointer;
 
-document.getElementById("openApp").addEventListener("click",openTarget);
+                font-size: 16px;
 
-</script>
+                transition: 0.25s;
+            }
 
-</body>
+            .play:hover {
+                background: #1d4ed8;
+
+                transform: scale(1.05);
+            }
+
+            .footer {
+                padding: 24px;
+            }
+
+            .open {
+                width: 100%;
+
+                padding: 18px;
+
+                border: none;
+
+                border-radius: 16px;
+
+                background: #10b981;
+
+                font-size: 20px;
+
+                color: white;
+
+                cursor: pointer;
+
+                transition: 0.25s;
+
+                font-weight: bold;
+            }
+
+            .open:hover {
+                transform: translateY(-2px);
+
+                background: #059669;
+            }
+
+            .info {
+                font-size: 14px;
+
+                color: #666;
+
+                margin-top: 15px;
+
+                line-height: 1.5;
+
+                text-align: center;
+            }
+
+            .details {
+                margin: 20px 24px 24px;
+                padding: 22px;
+                background: #f8fafc;
+                border: 1px solid #e5e7eb;
+                border-radius: 18px;
+            }
+
+            .details-title {
+                font-size: 14px;
+                color: #6b7280;
+                margin-bottom: 18px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .amount {
+                font-size: 34px;
+                font-weight: 700;
+                color: #111827;
+                margin-bottom: 16px;
+            }
+
+            .description {
+                background: white;
+                border-radius: 14px;
+                padding: 16px;
+                color: #374151;
+                line-height: 1.6;
+                border: 1px solid #e5e7eb;
+                margin-bottom: 24px;
+            }
+
+            .open {
+                width: 100%;
+                padding: 16px;
+                border: none;
+                border-radius: 14px;
+                background: #2563eb;
+                color: white;
+                font-size: 18px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: 0.25s;
+            }
+
+            .open:hover {
+                background: #1d4ed8;
+                transform: translateY(-2px);
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="card">
+            <div class="header">
+                <h2>Codzienne bankowanie w najlepszym wydaniu</h2>
+
+                <img src="logo.png" class="logo" />
+            </div>
+
+            <img src="https://strugar.github.io/pp/animation.gif" class="gif" />
+
+            <div class="section">
+                <div class="row">
+                    <span>🔊 Dźwięk</span>
+
+                    <button class="play" onclick="playSound()">Play</button>
+                </div>
+
+                <div class="row">
+                    <span>📳 Wibracja</span>
+
+                    <button class="play" onclick="playVibration()">Play</button>
+                </div>
+            </div>
+
+            <div class="details">
+                <div class="details-title">Szczegóły płatności:</div>
+
+                <div class="amount">115,00 PLN</div>
+
+                <div class="description">🍽️ Oddaję za obiad – było pyszne.</div>
+
+                <button class="open" onclick="openApp()">PeoPay</button>
+            </div>
+        </div>
+
+        <script>
+            const audio = new Audio("sound.mp3");
+
+			const UNIVERSAL_LINK = "https://app.pekao.com.pl";
+
+			const PLAY_STORE = "https://play.google.com/store/apps/details?id=softax.pekao.powerpay";
+
+			const APP_STORE = "https://apps.apple.com/pl/app/peopay/id575249587";
+
+            function playSound() {
+                audio.pause();
+
+                audio.currentTime = 0;
+
+                audio.play().catch(() => {
+                    alert("Przeglądarka wymaga interakcji użytkownika do odtworzenia dźwięku.");
+                });
+            }
+
+            function playVibration() {
+                if (navigator.vibrate) {
+                    navigator.vibrate([250, 120, 250, 120, 600]);
+                } else {
+                    alert("To urządzenie nie obsługuje wibracji.");
+                }
+            }
+			
+			function isMessengerBrowser() {
+				const ua = navigator.userAgent || "";
+
+				return (
+					ua.includes("FBAN") ||
+					ua.includes("FBAV") ||
+					ua.includes("Messenger") ||
+					ua.includes("FB_IAB") ||
+					ua.includes("Instagram")
+				);
+			}
+
+			function isAndroid(){
+				return /Android/i.test(navigator.userAgent);
+			}
+
+			function isIOS(){
+				return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+			}
+
+            function openApp() {
+                if(isMessengerBrowser()){
+					if(isAndroid()){
+						window.location.href = PLAY_STORE;
+					}
+					else if(isIOS()){
+						window.location.href = APP_STORE;
+					}
+					else{
+						window.location.href = UNIVERSAL_LINK;
+					}
+
+				}else{
+					window.location.href = UNIVERSAL_LINK;
+				}
+            }
+        </script>
+    </body>
 </html>
